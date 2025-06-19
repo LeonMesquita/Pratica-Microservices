@@ -16,5 +16,5 @@ public class ClientDTO {
     private String name;
 
     @NotNull
-    private String age;
+    private int age;
 }

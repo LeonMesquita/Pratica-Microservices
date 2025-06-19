@@ -20,8 +20,8 @@ public class ClientController {
         return ResponseEntity.ok(clientService.save(body));
     }
 
-    @GetMapping("/{cpf}")
-    public ResponseEntity<ClientModel> getClientByCpf(@PathVariable String cpf) {
+    @GetMapping
+    public ResponseEntity<ClientModel> getClientByCpf(@RequestParam String cpf) {
         return ResponseEntity.ok(clientService.findByCpf(cpf));
     }
 }
