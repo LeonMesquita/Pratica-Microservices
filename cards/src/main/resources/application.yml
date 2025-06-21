@@ -7,9 +7,9 @@ spring:
 
   datasource:
     url: jdbc:postgresql://${DB_HOST}:${DB_PORT}/${DB_NAME}
-    # url: ${DB_URL}
     username: ${DB_USERNAME}
     password: ${DB_PASSWORD}
+
   jpa:
     hibernate:
       ddl-auto: update
@@ -21,12 +21,20 @@ spring:
     open-in-view: false
 
 server:
-  #  porta random
   port: 0
 
 eureka:
   client:
     service-url:
       defaultZone: http://localhost:8761/eureka
+    healthcheck:
+      enabled: true
+
   instance:
     instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health

@@ -7,7 +7,9 @@ import jakarta.ws.rs.NotFoundException;
 import org.hibernate.ObjectNotFoundException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Optional;
 
@@ -25,9 +27,10 @@ public class ClientService {
         return clientRepository.save(clientModel);
     }
 
+
     public ClientModel findByCpf(String cpf) {
-        return clientRepository.findByCpf(cpf).orElseThrow(
-                () -> new NotFoundException("Cliente não encontrado!")
+        return clientRepository.findByCpf(cpf).orElseThrow(() ->
+                new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente não encontrado!")
         );
     }
 }

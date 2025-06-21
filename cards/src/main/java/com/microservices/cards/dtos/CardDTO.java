@@ -19,5 +19,5 @@ public class CardDTO {
     private BigDecimal income;
 
     @NotNull
-    private BigDecimal cardLimit;
+    private BigDecimal basicLimit;
 }

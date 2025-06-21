@@ -28,5 +28,5 @@ public class CardModel {
     private BigDecimal income;
 
     @Column(nullable = false)
-    private BigDecimal cardLimit;
+    private BigDecimal basicLimit;
 }
