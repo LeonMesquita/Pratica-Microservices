@@ -1,6 +1,11 @@
 spring:
   application:
     name: cards
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: admin
+    password: admin
 
   config:
     import: "optional:file:.env[.properties]"
@@ -38,3 +43,8 @@ management:
     web:
       exposure:
         include: health
+
+
+mq:
+  queues:
+    card-issuance: card-issuance

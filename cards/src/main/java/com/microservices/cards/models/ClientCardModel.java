@@ -21,7 +21,7 @@ public class ClientCardModel {
     @JoinColumn(name = "card_id")
     private CardModel card;
 
-    @Column(nullable = false, length = 11, unique = true)
+    @Column(nullable = false, length = 11)
     private String cpf;
 
     @Column(nullable = false)

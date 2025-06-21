@@ -1,9 +1,7 @@
 package com.microservices.credit_validator.controllers;
 
 
-import com.microservices.credit_validator.dtos.ClientSituation;
-import com.microservices.credit_validator.dtos.DataValidation;
-import com.microservices.credit_validator.dtos.ReturnClientValidation;
+import com.microservices.credit_validator.dtos.*;
 import com.microservices.credit_validator.services.ClientValidatorService;
 import jakarta.ws.rs.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,5 +30,13 @@ public class CreditValidationController {
             return ResponseEntity.ok(returnClientValidation);
 
     }
+
+    @PostMapping("card-request")
+    public ResponseEntity requesCard(@RequestBody DataCardIssuanceRequest data) {
+        ProtocolCardRequest protocolCardRequest = clientValidatorService.requestCardIssuance(data);
+        return ResponseEntity.ok(protocolCardRequest);
+    }
+
+
 
 }

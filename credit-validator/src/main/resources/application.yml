@@ -2,6 +2,11 @@ spring:
   application:
     name: credit-validator
 
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: admin
+    password: admin
   config:
     import: "optional:file:.env[.properties]"
 
@@ -30,3 +35,13 @@ eureka:
       defaultZone: http://localhost:8761/eureka
   instance:
     instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+
+
+mq:
+  queues:
+    card-issuance: card-issuance
+
+logging:
+  level:
+    org.springframework.amqp: DEBUG
+    org.springframework.amqp.rabbit.listener: DEBUG

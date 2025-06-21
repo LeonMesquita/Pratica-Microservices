@@ -3,6 +3,7 @@ package com.microservices.credit_validator.services;
 import com.microservices.credit_validator.clients.CardsResourceClient;
 import com.microservices.credit_validator.clients.ClientResourceClient;
 import com.microservices.credit_validator.dtos.*;
+import com.microservices.credit_validator.rabbitmq.CardIssuancePublisher;
 import feign.FeignException;
 import jakarta.ws.rs.NotFoundException;
 import jakarta.ws.rs.ServerErrorException;
@@ -14,6 +15,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -23,6 +25,9 @@ public class ClientValidatorService {
 
     @Autowired
     CardsResourceClient cardsResourceClient;
+
+    @Autowired
+    CardIssuancePublisher cardIssuancePublisher;
 
     public ClientSituation getClientSituation(String cpf) throws  NotFoundException {
         //obter dados do cliente - microserviço clients
@@ -79,4 +84,23 @@ public class ClientValidatorService {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente não encontrado!");
         }
     }
+
+
+
+    public ProtocolCardRequest requestCardIssuance(DataCardIssuanceRequest data) {
+        try {
+            cardIssuancePublisher.requestCard(data);
+            var protocol = UUID.randomUUID().toString();
+            return new ProtocolCardRequest(protocol);
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Erro ao solicitar cartão");
+        }
+    }
+
+
+
+
+
+
+
 }
